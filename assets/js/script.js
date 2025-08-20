@@ -169,7 +169,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
   const formMessage = document.createElement("div");
   contactForm.appendChild(formMessage);
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbw-vBJQjny-qyThgP5yTswU8JaN0mSniRH1FpSRzbgod5fFdH0xx9XfAM2kwdrjB0QctQ/exec'; // replace with your Apps Script URL
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyEW_LSlYGzJtamqI6vWjSHLvZB_gCGMGzrMXrMbGuqdKnlr-dZp1xoxVe302A1vv6CTA/exec'; // replace with your Apps Script URL
 
   if (!contactForm || !submitBtn) return;
 
