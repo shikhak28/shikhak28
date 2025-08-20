@@ -156,4 +156,52 @@ for (let i = 0; i < navigationLinks.length; i++) {
     }
 
   });
+
+
+ 
+
 }
+
+
+ (() => {
+  const contactForm = document.querySelector("[data-form]");
+  const submitBtn = document.querySelector("[data-form-btn]");
+  const formMessage = document.createElement("div");
+  contactForm.appendChild(formMessage);
+
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyxGcaNIOepkDnXhjwExfXDCUlBXh_1digEuY_CxU-_SmYGNY6PsrSVMi1Z664PHf8Vag/exec'; // replace with your Apps Script URL
+
+  if (!contactForm || !submitBtn) return;
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+
+    const data = {
+      name: contactForm.fullname.value,
+      email: contactForm.email.value,
+      message: contactForm.message.value
+    };
+
+    try {
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      const result = await response.json();
+      formMessage.textContent = result.message || "Thank you! Your message has been sent.";
+      formMessage.style.color = 'green';
+      contactForm.reset();
+    } catch (error) {
+      console.error('Error!', error);
+      formMessage.textContent = "Failed to submit. Check console for details.";
+      formMessage.style.color = 'red';
+    
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+})();
