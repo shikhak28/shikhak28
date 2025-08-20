@@ -163,33 +163,26 @@ for (let i = 0; i < navigationLinks.length; i++) {
 }
 
 
- (() => {
+(() => {
   const contactForm = document.querySelector("[data-form]");
   const submitBtn = document.querySelector("[data-form-btn]");
   const formMessage = document.createElement("div");
   contactForm.appendChild(formMessage);
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbyEW_LSlYGzJtamqI6vWjSHLvZB_gCGMGzrMXrMbGuqdKnlr-dZp1xoxVe302A1vv6CTA/exec'; // replace with your Apps Script URL
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzKAwhdK3t9BOabD5rAjvsnM3PFxXCwwSr-yM8jqOFelaZkX-rc_IJcceG54x6TN-JBMw/exec';
 
   if (!contactForm || !submitBtn) return;
-  
 
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
 
-    const data = {
-      name: contactForm.fullname.value,
-      email: contactForm.email.value,
-      message: contactForm.message.value
-    };
+    const formData = new FormData(contactForm);
 
     try {
       const response = await fetch(scriptURL, {
         method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
+        body: formData
       });
 
       const result = await response.json();
@@ -198,9 +191,8 @@ for (let i = 0; i < navigationLinks.length; i++) {
       contactForm.reset();
     } catch (error) {
       console.error('Error!', error);
-      formMessage.textContent = "Failed to submit. Check console for details.";
+      formMessage.textContent = "Failed to submit. Please try again.";
       formMessage.style.color = 'red';
-    
     } finally {
       submitBtn.disabled = false;
     }
