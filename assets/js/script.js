@@ -172,6 +172,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
   const scriptURL = 'https://script.google.com/macros/s/AKfycbyEW_LSlYGzJtamqI6vWjSHLvZB_gCGMGzrMXrMbGuqdKnlr-dZp1xoxVe302A1vv6CTA/exec'; // replace with your Apps Script URL
 
   if (!contactForm || !submitBtn) return;
+  
 
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
